@@ -21,18 +21,6 @@
             "entry": "particle-container.js"
         },
         {
-            "title": "Masking - Graphics",
-            "entry": "masking-graphics.js"
-        },
-        {
-            "title": "Masking - Sprite Alpha",
-            "entry": "masking-sprite-alpha.js"
-        },
-        {
-            "title": "Masking - Filter",
-            "entry": "filter-mask.js"
-        }
-        {
             "title": "BlendModes",
             "entry": "blendmodes.js"
         }
@@ -50,10 +38,10 @@
             "title": "Mouse Trail",
             "entry": "mouse-trail.js"
         },
-		{
+        {
             "title": "Star Warp",
             "entry": "star-warp.js"
-		}
+        }
     ],
     "sprite": [
         {
@@ -129,6 +117,20 @@
         {
             "title": "Custom mouse icon",
             "entry": "custom-mouse-icon.js"
+        }
+    ],
+    "masks": [
+        {
+            "title": "Graphic Mask",
+            "entry": "graphics.js"
+        },
+        {
+            "title": "Sprite Alpha Mask",
+            "entry": "sprite-alpha.js"
+        },
+        {
+            "title": "Filter Mask",
+            "entry": "filter.js"
         }
     ],
     "filters": [
