@@ -29,6 +29,10 @@
             "entry": "masking-sprite-alpha.js"
         },
         {
+            "title": "Masking - Filter",
+            "entry": "filter-mask.js"
+        }
+        {
             "title": "BlendModes",
             "entry": "blendmodes.js"
         }
@@ -46,10 +50,10 @@
             "title": "Mouse Trail",
             "entry": "mouse-trail.js"
         },
-        {
+		{
             "title": "Star Warp",
             "entry": "star-warp.js"
-        }
+		}
     ],
     "sprite": [
         {
