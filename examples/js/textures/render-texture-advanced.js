@@ -1,85 +1,57 @@
-const app = new PIXI.Application();
-document.body.appendChild(app.view);
+"use strict";
 
-// create two render textures... these dynamic textures will be used to draw the scene into itself
-let renderTexture = PIXI.RenderTexture.create(
-    app.screen.width,
-    app.screen.height,
-);
-let renderTexture2 = PIXI.RenderTexture.create(
-    app.screen.width,
-    app.screen.height,
-);
-const currentTexture = renderTexture;
+var app = new PIXI.Application();
+document.body.appendChild(app.view); // create two render textures... these dynamic textures will be used to draw the scene into itself
 
-// create a new sprite that uses the render texture we created above
-const outputSprite = new PIXI.Sprite(currentTexture);
+var renderTexture = PIXI.RenderTexture.create(app.screen.width, app.screen.height);
+var renderTexture2 = PIXI.RenderTexture.create(app.screen.width, app.screen.height);
+var currentTexture = renderTexture; // create a new sprite that uses the render texture we created above
 
-// align the sprite
+var outputSprite = new PIXI.Sprite(currentTexture); // align the sprite
+
 outputSprite.x = 400;
 outputSprite.y = 300;
-outputSprite.anchor.set(0.5);
+outputSprite.anchor.set(0.5); // add to stage
 
-// add to stage
 app.stage.addChild(outputSprite);
-
-const stuffContainer = new PIXI.Container();
-
+var stuffContainer = new PIXI.Container();
 stuffContainer.x = 400;
 stuffContainer.y = 300;
+app.stage.addChild(stuffContainer); // create an array of image ids..
 
-app.stage.addChild(stuffContainer);
+var fruits = ['examples/assets/rt_object_01.png', 'examples/assets/rt_object_02.png', 'examples/assets/rt_object_03.png', 'examples/assets/rt_object_04.png', 'examples/assets/rt_object_05.png', 'examples/assets/rt_object_06.png', 'examples/assets/rt_object_07.png', 'examples/assets/rt_object_08.png']; // create an array of items
 
-// create an array of image ids..
-const fruits = [
-    'examples/assets/rt_object_01.png',
-    'examples/assets/rt_object_02.png',
-    'examples/assets/rt_object_03.png',
-    'examples/assets/rt_object_04.png',
-    'examples/assets/rt_object_05.png',
-    'examples/assets/rt_object_06.png',
-    'examples/assets/rt_object_07.png',
-    'examples/assets/rt_object_08.png',
-];
+var items = []; // now create some items and randomly position them in the stuff container
 
-// create an array of items
-const items = [];
+for (var i = 0; i < 20; i++) {
+  var item = PIXI.Sprite.from(fruits[i % fruits.length]);
+  item.x = Math.random() * 400 - 200;
+  item.y = Math.random() * 400 - 200;
+  item.anchor.set(0.5);
+  stuffContainer.addChild(item);
+  items.push(item);
+} // used for spinning!
 
-// now create some items and randomly position them in the stuff container
-for (let i = 0; i < 20; i++) {
-    const item = PIXI.Sprite.from(fruits[i % fruits.length]);
-    item.x = Math.random() * 400 - 200;
-    item.y = Math.random() * 400 - 200;
-    item.anchor.set(0.5);
-    stuffContainer.addChild(item);
-    items.push(item);
-}
 
-// used for spinning!
-let count = 0;
-
-app.ticker.add(() => {
-    for (let i = 0; i < items.length; i++) {
+var count = 0;
+app.ticker.add(function () {
+  for (var _i = 0; _i < items.length; _i++) {
     // rotate each item
-        const item = items[i];
-        item.rotation += 0.1;
-    }
+    var _item = items[_i];
+    _item.rotation += 0.1;
+  }
 
-    count += 0.01;
+  count += 0.01; // swap the buffers ...
 
-    // swap the buffers ...
-    const temp = renderTexture;
-    renderTexture = renderTexture2;
-    renderTexture2 = temp;
+  var temp = renderTexture;
+  renderTexture = renderTexture2;
+  renderTexture2 = temp; // set the new texture
 
-    // set the new texture
-    outputSprite.texture = renderTexture;
+  outputSprite.texture = renderTexture; // twist this up!
 
-    // twist this up!
-    stuffContainer.rotation -= 0.01;
-    outputSprite.scale.set(1 + Math.sin(count) * 0.2);
+  stuffContainer.rotation -= 0.01;
+  outputSprite.scale.set(1 + Math.sin(count) * 0.2); // render the stage to the texture
+  // the 'true' clears the texture before the content is rendered
 
-    // render the stage to the texture
-    // the 'true' clears the texture before the content is rendered
-    app.renderer.render(app.stage, renderTexture2, false);
+  app.renderer.render(app.stage, renderTexture2, false);
 });
